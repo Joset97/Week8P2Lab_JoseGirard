@@ -16,11 +16,11 @@ public class Estrellas implements Serializable {
     
     private String nombre;
     private String descripcion;
-    private double distancia;
+    private int distancia;
     
     private static final long SerialVersionUID= 9990L;
 
-    public Estrellas(String nombre, String descripcion, double distancia) {
+    public Estrellas(String nombre, String descripcion, int distancia) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.distancia = distancia;
@@ -46,7 +46,7 @@ public class Estrellas implements Serializable {
         return distancia;
     }
 
-    public void setDistancia(double distancia) {
+    public void setDistancia(int distancia) {
         this.distancia = distancia;
     }
     

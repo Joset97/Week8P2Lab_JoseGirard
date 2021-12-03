@@ -1,6 +1,6 @@
 package SuperJamesGalaxy;
 
-import java.io.Serializable;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,14 +12,14 @@ import java.io.Serializable;
  *
  * @author jrgir
  */
-public class Jugadores implements Serializable{
+public class Jugadores {
     
-   private double velocidad;
+   private int velocidad;
     private String name;
 
-     private static final long SerialVersionUID= 7770L;
+   //
     
-    public Jugadores(double velocidad, String name) {
+    public Jugadores(int velocidad, String name) {
         this.velocidad = velocidad;
         this.name = name;
     }
@@ -28,7 +28,7 @@ public class Jugadores implements Serializable{
         return velocidad;
     }
 
-    public void setVelocidad(double velocidad) {
+    public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
     }
 

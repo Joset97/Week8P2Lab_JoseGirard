@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class AdminStars {
     
     
-      private ArrayList<Estrellas> Stars = new ArrayList();
+    private ArrayList<Estrellas> Stars = new ArrayList();
     private File archivo = null;
 
     public AdminStars(String path) {
