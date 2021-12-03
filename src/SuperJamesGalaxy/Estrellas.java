@@ -1,5 +1,7 @@
 package SuperJamesGalaxy;
 
+import java.io.Serializable;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,11 +12,13 @@ package SuperJamesGalaxy;
  *
  * @author jrgir
  */
-public class Estrellas {
+public class Estrellas implements Serializable {
     
     private String nombre;
     private String descripcion;
     private double distancia;
+    
+    private static final long SerialVersionUID= 9990L;
 
     public Estrellas(String nombre, String descripcion, double distancia) {
         this.nombre = nombre;
