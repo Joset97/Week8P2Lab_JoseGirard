@@ -16,16 +16,16 @@ import javax.swing.JOptionPane;
  */
 public class Partidas implements Serializable {
 
-    String nombre;
-    Date FechaCreacion;
-    ArrayList<Estrellas> Stars;
-    ArrayList<Jugadores> Players;
+ private   String nombre;
+  private  Date FechaCreacion;
+   private ArrayList<Estrellas> Stars;
+   private ArrayList<Jugadores> Players;
 
     private static final long SerialVersionUID = 99770L;
 
-    public Partidas(String nombre, Date FechaCreacion) {
+    public Partidas(String nombre) {
         this.nombre = nombre;
-        this.FechaCreacion = FechaCreacion;
+        this.FechaCreacion = new Date();
         this.Stars = new ArrayList();
         this.Players = new ArrayList();
     }
@@ -126,6 +126,11 @@ public class Partidas implements Serializable {
 
         return validar;
 
+    }
+
+    @Override
+    public String toString() {
+        return "Partidas{" + "nombre=" + nombre + ", FechaCreacion=" + FechaCreacion + ", Stars=" + Stars + ", Players=" + Players + '}';
     }
     
     

@@ -39,6 +39,12 @@ public class Jugadores {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Jugadores{" + "velocidad=" + velocidad + ", name=" + name + '}';
+    }
+    
     
     
     

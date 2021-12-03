@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package SuperJamesGalaxy;
 
 import java.io.EOFException;
@@ -8,32 +13,24 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author jrgir
  */
-public class AdminStars {
-    
-    
-    private ArrayList<Estrellas> Stars = new ArrayList();
+public class AdminPartidas {
+  private ArrayList<Partidas> Player = new ArrayList();
     private File archivo = null;
 
-    public AdminStars(String path) {
+    public AdminPartidas(String path) {
         archivo = new File(path);
     }
 
-    public ArrayList<Estrellas> getListaStars() {
-        return Stars;
+    public ArrayList<Partidas> getListaJugadores() {
+        return Player;
     }
 
-    public void setListaPersonas(ArrayList<Estrellas> Stars) {
-        this.Stars = Stars;
+    public void setListaPartidas(ArrayList<Partidas> Player) {
+        this.Player = Player;
     }
 
     public File getArchivo() {
@@ -46,26 +43,26 @@ public class AdminStars {
 
     @Override
     public String toString() {
-        return "Estrellas=" + Stars;
+        return "Partida=" + Player;
     }
 
     //extra mutador
-    public void setPersona(Estrellas p) {
-        this.Stars.add(p);
+    public void setPersona(Partidas p) {
+        this.Player.add(p);
     }
 
     public void cargarArchivo() {
         try {            
-            Stars = new ArrayList();
-            Estrellas temp;
+            Player = new ArrayList();
+            Partidas temp;
             if (archivo.exists()) {
                 FileInputStream entrada
                     = new FileInputStream(archivo);
                 ObjectInputStream objeto
                     = new ObjectInputStream(entrada);
                 try {
-                    while ((temp = (Estrellas) objeto.readObject()) != null) {
-                        Stars.add(temp);
+                    while ((temp = (Partidas) objeto.readObject()) != null) {
+                        Player.add(temp);
                     }
                 } catch (EOFException e) {
                     //encontro el final del archivo
@@ -84,7 +81,7 @@ public class AdminStars {
         try {
             fw = new FileOutputStream(archivo);
             bw = new ObjectOutputStream(fw);
-            for (Estrellas t : Stars) {
+            for (Partidas t : Player) {
                 bw.writeObject(t);
             }
             bw.flush();
