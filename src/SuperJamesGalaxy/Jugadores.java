@@ -1,3 +1,5 @@
+package SuperJamesGalaxy;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,6 +10,9 @@
  *
  * @author jrgir
  */
-public class Estrellas {
+public class Jugadores {
+    
+   private double velocidad;
+    private String name;
     
 }
