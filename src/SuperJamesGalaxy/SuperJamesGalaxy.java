@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author jrgir
  */
-public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
+public class SuperJamesGalaxy extends javax.swing.JFrame {
 
     /**
      * Creates new form SuperJamesGalaxy
@@ -25,7 +25,14 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
         AP.cargarArchivo();
         games = AP.getListaJugadores();
 
+        /*LabelDistanciaRecorridaJuego.setText(TablaJuegos.);
+     LabelDistanciajuego;
+     LabelEstrellasJuego;
+     LabelJugadorJuego;
+     LabelPartidaJuego;*/
         ActualizarCombos();
+
+        h = new HiloLables(ComboPartidasPartidas, barra, LabelPartidaJuego, LabelJugadorJuego, LabelDistanciajuego, LabelDistanciaRecorridaJuego, LabelEstrellasJuego, TablaJuegos);
 
     }
 
@@ -52,8 +59,8 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
         LabelEstrellasJuego = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         LabelDistanciaRecorridaJuego = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jButton7 = new javax.swing.JButton();
+        barra = new javax.swing.JProgressBar();
+        BotonComenzar = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         ComboPlayersJuego = new javax.swing.JComboBox<>();
@@ -128,9 +135,19 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
 
         LabelDistanciaRecorridaJuego.setText("jLabel20");
 
-        jButton7.setText("Comenzar ");
+        BotonComenzar.setText("Comenzar ");
+        BotonComenzar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonComenzarActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Pausar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("Agregar");
         jButton9.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -185,7 +202,7 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
                                                 .addComponent(jLabel19)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(LabelDistanciaRecorridaJuego))))
-                                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(barra, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 33, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +213,7 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
                                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(BotonComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
@@ -223,13 +240,13 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
                     .addComponent(jLabel19)
                     .addComponent(LabelDistanciaRecorridaJuego))
                 .addGap(49, 49, 49)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(barra, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton8)
-                    .addComponent(jButton7))
+                    .addComponent(BotonComenzar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ComboEstrellasJuego, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -554,22 +571,22 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-             String nombre = ((Jugadores)ComboPlayersJuego.getSelectedItem()).getName();
-        int velocidad=  ((Jugadores)ComboPlayersJuego.getSelectedItem()).getVelocidad();
+        String nombre = ((Jugadores) ComboPlayersJuego.getSelectedItem()).getName();
+        int velocidad = ((Jugadores) ComboPlayersJuego.getSelectedItem()).getVelocidad();
+
+        String Star = ((Estrellas) ComboEstrellasJuego.getSelectedItem()).getNombre();
+        int dist = ((Estrellas) ComboEstrellasJuego.getSelectedItem()).getDistancia();
+
+        String Estado = "En espera";
+
+        DefaultTableModel modeloT = (DefaultTableModel) TablaJuegos.getModel();
+        modeloT.setRowCount(0);
+
+        Object[] newRow = {nombre, velocidad, Star, dist, Estado};
+
+        modeloT.addRow(newRow);
         
-        String Star = ((Estrellas)ComboEstrellasJuego.getSelectedItem()).getNombre();
-          int dist = ((Estrellas)ComboEstrellasJuego.getSelectedItem()).getDistancia();
-          
-          String Estado="En espera";
-          
-          DefaultTableModel modeloT = (DefaultTableModel)TablaJuegos.getModel();
-          modeloT.setRowCount(0);
-          
-          Object[] newRow ={nombre,velocidad,Star,dist,Estado};
-          
-          modeloT.addRow(newRow);
-   
-          
+     
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -602,18 +619,17 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
         String name = NameJugadores.getText();
         int velocidad = Integer.parseInt(VelocidadJugadores.getText());
 
-    
-             Partidas temp = (Partidas) ComboPartidasJugadores.getSelectedItem();
+        Partidas temp = (Partidas) ComboPartidasJugadores.getSelectedItem();
 
-            for (Partidas o : AP.getListaJugadores()) {
+        for (Partidas o : AP.getListaJugadores()) {
 
             if (o.getNombre().equals(temp.getNombre())) {
 
-                if (temp.agregarJugador(velocidad, name)==true) {
+                if (temp.agregarJugador(velocidad, name) == true) {
 
                     JOptionPane.showMessageDialog(this, "Jugador creado");
 
-                         AP.escribirArchivo();
+                    AP.escribirArchivo();
                     AP.cargarArchivo();
                 } else {
 
@@ -627,6 +643,21 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
     private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9MouseClicked
+
+    private void BotonComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonComenzarActionPerformed
+   Thread proceso1 = new Thread(h);
+        proceso1.start();        // TODO add your handling code here:
+
+h.setEstado(true);
+h.setJugando(true);
+    }//GEN-LAST:event_BotonComenzarActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        h.setEstado(false);
+h.setJugando(false);
+        
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -663,14 +694,14 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
         });
     }
 
-    public void actualizarCombosJuego(){
-    
-     DefaultComboBoxModel modelo
+    public void actualizarCombosJuego() {
+
+        DefaultComboBoxModel modelo
                 = (DefaultComboBoxModel) ComboEstrellasJuego.getModel();
         modelo.removeAllElements();
 
         Partidas temp = (Partidas) ComboPartidasPartidas.getSelectedItem();
-        
+
         for (Estrellas a : temp.getStars()) {
 
             modelo.addElement((a));
@@ -685,10 +716,9 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
             modelo1.addElement((a));
 
         }
-    
-    
+
     }
-    
+
     public void ActualizarCombos() {
 
         DefaultComboBoxModel modelo
@@ -723,6 +753,7 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotonComenzar;
     private javax.swing.JComboBox<String> ComboEstrellasJuego;
     private javax.swing.JComboBox<String> ComboPartidasEstrellas;
     private javax.swing.JComboBox<String> ComboPartidasJugadores;
@@ -741,6 +772,7 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
     private javax.swing.JTable TablaJuegos;
     private javax.swing.JTextField TxtnombrepartidaPartida;
     private javax.swing.JFormattedTextField VelocidadJugadores;
+    private javax.swing.JProgressBar barra;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
@@ -748,7 +780,6 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
@@ -771,30 +802,12 @@ public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 ArrayList<Partidas> games = new ArrayList();
     AdminPartidas AP = new AdminPartidas(".\\Partidas\\Partidas.gam");
+    HiloLables h;
 
-    @Override
-    public void run() {
-     
-        while(true){
-       
-            
-            
-     /*LabelDistanciaRecorridaJuego.setText(TablaJuegos.);
-     LabelDistanciajuego;
-     LabelEstrellasJuego;
-     LabelJugadorJuego;
-     LabelPartidaJuego;*/
-        
-        
-        }
-        
-        
-           }
 }
