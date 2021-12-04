@@ -130,7 +130,7 @@ public class Partidas implements Serializable {
 
     @Override
     public String toString() {
-        return "Partidas{" + "nombre=" + nombre + ", FechaCreacion=" + FechaCreacion + ", Stars=" + Stars + ", Players=" + Players + '}';
+        return   nombre ;
     }
     
     

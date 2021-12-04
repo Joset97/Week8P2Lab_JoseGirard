@@ -2,6 +2,7 @@ package SuperJamesGalaxy;
 
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,7 +13,7 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author jrgir
  */
-public class SuperJamesGalaxy extends javax.swing.JFrame {
+public class SuperJamesGalaxy extends javax.swing.JFrame implements Runnable{
 
     /**
      * Creates new form SuperJamesGalaxy
@@ -22,17 +23,9 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
 
         AP.cargarArchivo();
         games = AP.getListaJugadores();
-        
-        DefaultComboBoxModel modelo
-                = (DefaultComboBoxModel) ComboPartidasPartidas.getModel();
-        modelo.removeAllElements();
 
-        for (Partidas a: games) {
+        ActualizarCombos();
 
-            modelo.addElement((a.getNombre()));
-
-        }
-        
     }
 
     /**
@@ -78,22 +71,22 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        DescripcionStar = new javax.swing.JTextArea();
         ComboPartidasEstrellas = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jTextField2 = new javax.swing.JTextField();
+        DistanciaStar = new javax.swing.JFormattedTextField();
+        NameStar = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        NameJugadores = new javax.swing.JTextField();
+        VelocidadJugadores = new javax.swing.JFormattedTextField();
         ComboPartidasJugadores = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
 
@@ -253,8 +246,6 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
 
         jLabel1.setText("Partidas");
 
-        ComboPartidasPartidas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jButton1.setText("Iniciar");
 
         jButton2.setText("Eliminar Partida");
@@ -327,11 +318,11 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Partidas", jPanel2);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        DescripcionStar.setColumns(20);
+        DescripcionStar.setRows(5);
+        jScrollPane1.setViewportView(DescripcionStar);
 
-        ComboPartidasEstrellas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboPartidasEstrellas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         jLabel4.setText("Descripcion");
 
@@ -348,9 +339,9 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        NameStar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                NameStarActionPerformed(evt);
             }
         });
 
@@ -365,18 +356,21 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ComboPartidasEstrellas, 0, 136, Short.MAX_VALUE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextField2)))
+                        .addGap(109, 109, 109)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ComboPartidasEstrellas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(NameStar)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5))
+                                .addGap(0, 112, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jFormattedTextField1))
+                            .addComponent(DistanciaStar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29))
@@ -392,17 +386,17 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(ComboPartidasEstrellas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
+                        .addGap(30, 30, 30)
                         .addComponent(jLabel6)
-                        .addGap(29, 29, 29)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addComponent(NameStar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DistanciaStar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
@@ -419,10 +413,13 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
         jLabel10.setText("Velocidad");
 
         jButton6.setText("Crear Jugador");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
-        jTextField3.setText("jTextField3");
-
-        ComboPartidasJugadores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboPartidasJugadores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -437,19 +434,19 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jFormattedTextField2)
+                                .addComponent(VelocidadJugadores)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(NameJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(ComboPartidasJugadores, 0, 298, Short.MAX_VALUE))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE))
+                                    .addComponent(ComboPartidasJugadores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(67, 67, 67))))
         );
         jPanel4Layout.setVerticalGroup(
@@ -461,14 +458,14 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NameJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboPartidasJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(73, 73, 73)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(VelocidadJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(104, Short.MAX_VALUE))
         );
 
@@ -515,11 +512,34 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+
+        String nombre = NameStar.getText();
+        String descripcion = DescripcionStar.getText();
+        int distancia = Integer.parseInt(DistanciaStar.getText());
+
+        Partidas temp = (Partidas) ComboPartidasEstrellas.getSelectedItem();
+
+        for (Partidas o : AP.getListaJugadores()) {
+
+            if (o.getNombre().equals(temp.getNombre())) {
+
+                if (temp.agregarEstrella(nombre, descripcion, distancia) == true) {
+
+                    JOptionPane.showMessageDialog(this, "Estrella creada");
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Estrella NO creada");
+                }
+            }
+        }
+
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void NameStarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameStarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_NameStarActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
@@ -529,21 +549,14 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         String nombrepart = TxtnombrepartidaPartida.getText();
-        
+
         games.add(new Partidas(nombrepart));
-        
-        DefaultComboBoxModel modelo
-                = (DefaultComboBoxModel) ComboPartidasPartidas.getModel();
-        modelo.removeAllElements();
 
-        for (Partidas a: games) {
-
-            modelo.addElement((a.getNombre()));
-
-        }
+        ActualizarCombos();
 
         AP.setListaPartidas(games);
         AP.escribirArchivo();
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -552,6 +565,19 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
         Juego.setVisible(true);
 
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here 
+        //crear jugador:
+
+        String name = NameJugadores.getText();
+        int velocidad = Integer.parseInt(VelocidadJugadores.getText());
+
+        DefaultComboBoxModel modelo2
+                = (DefaultComboBoxModel) ComboPartidasJugadores.getModel();
+
+
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -588,17 +614,55 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
         });
     }
 
+    public void ActualizarCombos() {
+
+        DefaultComboBoxModel modelo
+                = (DefaultComboBoxModel) ComboPartidasPartidas.getModel();
+        modelo.removeAllElements();
+
+        for (Partidas a : games) {
+
+            modelo.addElement((a));
+
+        }
+        DefaultComboBoxModel modelo1
+                = (DefaultComboBoxModel) ComboPartidasEstrellas.getModel();
+        modelo1.removeAllElements();
+
+        for (Partidas a : games) {
+
+            modelo1.addElement((a));
+
+        }
+
+        DefaultComboBoxModel modelo2
+                = (DefaultComboBoxModel) ComboPartidasJugadores.getModel();
+        modelo2.removeAllElements();
+
+        for (Partidas a : games) {
+
+            modelo2.addElement((a));
+
+        }
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboPartidasEstrellas;
     private javax.swing.JComboBox<String> ComboPartidasJugadores;
     private javax.swing.JComboBox<String> ComboPartidasPartidas;
+    private javax.swing.JTextArea DescripcionStar;
+    private javax.swing.JFormattedTextField DistanciaStar;
     private javax.swing.JFrame Juego;
     private javax.swing.JLabel LabelDistanciaRecorridaJuego;
     private javax.swing.JLabel LabelDistanciajuego;
     private javax.swing.JLabel LabelEstrellasJuego;
     private javax.swing.JLabel LabelJugadorJuego;
     private javax.swing.JLabel LabelPartidaJuego;
+    private javax.swing.JTextField NameJugadores;
+    private javax.swing.JTextField NameStar;
     private javax.swing.JTextField TxtnombrepartidaPartida;
+    private javax.swing.JFormattedTextField VelocidadJugadores;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
@@ -611,8 +675,6 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -638,10 +700,19 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 ArrayList<Partidas> games = new ArrayList();
     AdminPartidas AP = new AdminPartidas(".\\Partidas\\Partidas.gam");
+
+    @Override
+    public void run() {
+     
+        while(true){
+        
+        
+        
+        }
+        
+        
+           }
 }

@@ -24,7 +24,7 @@ public class Jugadores {
         this.name = name;
     }
 
-    public double getVelocidad() {
+    public int getVelocidad() {
         return velocidad;
     }
 

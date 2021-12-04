@@ -18,7 +18,8 @@ import java.util.ArrayList;
  * @author jrgir
  */
 public class AdminPartidas {
-  private ArrayList<Partidas> Player = new ArrayList();
+
+    private ArrayList<Partidas> Player = new ArrayList();
     private File archivo = null;
 
     public AdminPartidas(String path) {
@@ -47,19 +48,28 @@ public class AdminPartidas {
     }
 
     //extra mutador
-    public void setPersona(Partidas p) {
-        this.Player.add(p);
+    public void setPartida(Partidas p) {
+        boolean existe = false;
+        for (Partidas partidas : Player) {
+
+            if (p.getNombre().equals(partidas.getNombre())) {
+                existe = true;
+            }
+        }
+        if (existe == false) {
+            this.Player.add(p);
+        }
     }
 
     public void cargarArchivo() {
-        try {            
+        try {
             Player = new ArrayList();
             Partidas temp;
             if (archivo.exists()) {
                 FileInputStream entrada
-                    = new FileInputStream(archivo);
+                        = new FileInputStream(archivo);
                 ObjectInputStream objeto
-                    = new ObjectInputStream(entrada);
+                        = new ObjectInputStream(entrada);
                 try {
                     while ((temp = (Partidas) objeto.readObject()) != null) {
                         Player.add(temp);
@@ -69,7 +79,7 @@ public class AdminPartidas {
                 }
                 objeto.close();
                 entrada.close();
-            }            
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
