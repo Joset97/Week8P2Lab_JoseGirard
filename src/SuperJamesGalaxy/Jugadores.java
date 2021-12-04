@@ -1,5 +1,7 @@
 package SuperJamesGalaxy;
 
+import java.io.Serializable;
+
 
 
 /*
@@ -12,13 +14,13 @@ package SuperJamesGalaxy;
  *
  * @author jrgir
  */
-public class Jugadores {
+public class Jugadores implements Serializable {
     
    private int velocidad;
     private String name;
 
-   //
-    
+     private static final long SerialVersionUID = 99770L;
+     
     public Jugadores(int velocidad, String name) {
         this.velocidad = velocidad;
         this.name = name;
@@ -42,7 +44,7 @@ public class Jugadores {
 
     @Override
     public String toString() {
-        return "Jugadores{" + "velocidad=" + velocidad + ", name=" + name + '}';
+        return name ;
     }
     
     

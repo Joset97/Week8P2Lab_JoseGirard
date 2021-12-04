@@ -1,5 +1,7 @@
 package SuperJamesGalaxy;
 
+import java.io.Serializable;
+
 
 
 /*
@@ -12,13 +14,13 @@ package SuperJamesGalaxy;
  *
  * @author jrgir
  */
-public class Estrellas {
+public class Estrellas implements Serializable {
     
     private String nombre;
     private String descripcion;
     private int distancia;
     
-  
+   private static final long SerialVersionUID = 99770L;
 
     public Estrellas(String nombre, String descripcion, int distancia) {
         this.nombre = nombre;
@@ -42,7 +44,7 @@ public class Estrellas {
         this.descripcion = descripcion;
     }
 
-    public double getDistancia() {
+    public int getDistancia() {
         return distancia;
     }
 
@@ -52,7 +54,7 @@ public class Estrellas {
 
     @Override
     public String toString() {
-        return "Estrellas{" + "nombre=" + nombre + ", descripcion=" + descripcion + ", distancia=" + distancia + '}';
+        return  nombre ;
     }
     
     

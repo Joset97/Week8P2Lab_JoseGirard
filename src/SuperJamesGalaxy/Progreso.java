@@ -50,6 +50,16 @@ public class Progreso  extends Thread{
     public void setBarra(JProgressBar barra) {
         this.barra = barra;
     }
+
+    public Partidas getGame() {
+        return game;
+    }
+
+    public void setGame(Partidas game) {
+        this.game = game;
+    }
+    
+    
     
     @Override
     public void run(){
@@ -67,7 +77,7 @@ public class Progreso  extends Thread{
             } //FIN IF
             
             try {
-                Thread.sleep(0);
+                Thread.sleep(1000);
             } catch (InterruptedException ex) {
             }
         }
