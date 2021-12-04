@@ -24,16 +24,16 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
 
         AP.cargarArchivo();
         games = AP.getListaJugadores();
+ h = new HiloLables(ComboPartidasPartidas, barra, LabelPartidaJuego, LabelJugadorJuego, LabelDistanciajuego, LabelDistanciaRecorridaJuego, LabelEstrellasJuego, TablaJuegos);
 
-        /*LabelDistanciaRecorridaJuego.setText(TablaJuegos.);
+     /*LabelDistanciaRecorridaJuego.setText(TablaJuegos.);
      LabelDistanciajuego;
      LabelEstrellasJuego;
      LabelJugadorJuego;
      LabelPartidaJuego;*/
         ActualizarCombos();
 
-        h = new HiloLables(ComboPartidasPartidas, barra, LabelPartidaJuego, LabelJugadorJuego, LabelDistanciajuego, LabelDistanciaRecorridaJuego, LabelEstrellasJuego, TablaJuegos);
-
+       
     }
 
     /**
@@ -645,7 +645,9 @@ public class SuperJamesGalaxy extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9MouseClicked
 
     private void BotonComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonComenzarActionPerformed
-   Thread proceso1 = new Thread(h);
+    h = new HiloLables(ComboPartidasPartidas, barra, LabelPartidaJuego, LabelJugadorJuego, LabelDistanciajuego, LabelDistanciaRecorridaJuego, LabelEstrellasJuego, TablaJuegos);
+
+        Thread proceso1 = new Thread(h);
         proceso1.start();        // TODO add your handling code here:
 
 h.setEstado(true);

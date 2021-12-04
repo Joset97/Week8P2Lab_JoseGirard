@@ -68,6 +68,7 @@ public class Progreso  extends Thread{
         
         while(jugando){
             if(estado){
+                barra.setMaximum(game.getStars().get(pos).getDistancia());
                 barra.setValue(barra.getValue()+game.getPlayers().get(pos).getVelocidad());
                 if(barra.getValue()>= game.getStars().get(pos).getDistancia()){
                     barra.setValue(Inicio);

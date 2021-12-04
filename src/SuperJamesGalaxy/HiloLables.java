@@ -26,8 +26,8 @@ public class HiloLables implements Runnable {
     private JLabel distanciaR;
     private JLabel star;
     private JTable table;
-    private boolean jugando;
-    private boolean estado;
+    private boolean jugando=true;
+    private boolean estado=true;
 
     public HiloLables(JComboBox box, JProgressBar barra, JLabel partida, JLabel jugador, JLabel distanciaT, JLabel distanciaR, JLabel star, JTable table) {
         this.box = box;
@@ -125,25 +125,24 @@ public class HiloLables implements Runnable {
         int fila = 0;
         int pos = 0;
         int Inicio = 0;
-        while (true) {
+        while (jugando) {
             try {
                 String partida;//=((String)((DefaultTableModel) table.getModel()).getValueAt(fila, 0));
                 String jugador = ((String) ((DefaultTableModel) table.getModel()).getValueAt(0, fila));
                 String Star = ((String) ((DefaultTableModel) table.getModel()).getValueAt(2, fila));
                 String distancT = ((String) ((DefaultTableModel) table.getModel()).getValueAt(3, fila));
-                String distanciaR  =((String)((DefaultTableModel) table.getModel()).getValueAt(fila, 4));
+                String distanciaR;//  =((String)((DefaultTableModel) table.getModel()).getValueAt(fila, 4));
 
                 partida = ((Partidas) ((DefaultComboBoxModel) box.getModel()).getSelectedItem()).getNombre();
-getDistanciaR().setText(distanciaR);
-                getPartida().setText(partida);
-                getJugador().setText(jugador);
-                getStar().setText(Star);
-                getDistanciaT().setText(distancT);
+                this.partida.setText(partida);
+                this.jugador.setText(jugador);
+                star.setText(Star);
+                distanciaT.setText(distancT);
 
                 if (estado) {
 
                     distanciaR = (String.valueOf(barra.getValue() + ((int) ((DefaultTableModel) table.getModel()).getValueAt(1, fila))));
-                    getDistanciaR().setText(distanciaR);
+                    this.distanciaR.setText(distanciaR);
                     barra.setValue(barra.getValue() + ((int) ((DefaultTableModel) table.getModel()).getValueAt(1, fila)));
                     if (barra.getValue() >= ((int) ((DefaultTableModel) table.getModel()).getValueAt(3, fila))) {
                         barra.setValue(Inicio);
